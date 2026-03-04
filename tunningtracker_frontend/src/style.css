@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #0f172a;
+    --foreground: #f8fafc;
+    --primary: #3b82f6;
+    --primary-foreground: #ffffff;
+    --secondary: #1e293b;
+    --secondary-foreground: #f8fafc;
+    --accent: #8b5cf6;
+    --muted: #334155;
+    --muted-foreground: #94a3b8;
+    --card: #1e293b;
+    --card-foreground: #f8fafc;
+    --border: #334155;
+    --input: #1e293b;
+    --ring: #3b82f6;
+  }
+
+  body {
+    @apply bg-[var(--background)] text-[var(--foreground)] antialiased min-h-screen font-sans;
+  }
+}
+
+@layer components {
+  /* Premium Glassmorphism Card Utility */
+  .glass-card {
+    @apply bg-opacity-20 backdrop-blur-lg bg-white/5 border border-white/10 shadow-xl rounded-2xl;
+  }
+}

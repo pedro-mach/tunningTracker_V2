@@ -132,7 +132,7 @@
 <script setup>
 import { ref, onMounted, reactive } from 'vue'
 import { useRoute } from 'vue-router'
-import axios from 'axios'
+import api from '../services/api'
 
 const route = useRoute()
 const loading = ref(true)
@@ -153,9 +153,9 @@ const form = reactive({
 const fetchData = async () => {
   try {
     const [vehRes, actRes] = await Promise.all([
-      axios.get(`http://127.0.0.1:8000/api/v1/vehicles/${route.params.id}/`),
+      api.get(`/api/v1/vehicles/${route.params.id}/`),
       // Temporary workaround until custom nested routes are added: filter in frontend or if backend supports it
-      axios.get('http://127.0.0.1:8000/api/v1/activities/')
+      api.get('/api/v1/activities/')
     ])
     vehicle.value = vehRes.data
     // Filter activities belonging to this vehicle specifically since we are using DefaultRouter right now
@@ -191,7 +191,7 @@ const submitActivity = async () => {
       vehicle: vehicle.value.id,
       data_revisao_futura: form.data_revisao_futura || null
     }
-    const res = await axios.post('http://127.0.0.1:8000/api/v1/activities/', payload)
+    const res = await api.post('/api/v1/activities/', payload)
     
     // Refresh the list to apply new order or just push and re-sort
     await fetchData()

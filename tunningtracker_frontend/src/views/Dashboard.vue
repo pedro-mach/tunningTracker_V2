@@ -86,7 +86,7 @@
 
 <script setup>
 import { ref, onMounted, reactive } from 'vue'
-import axios from 'axios'
+import api from '../services/api'
 import VehicleCard from '../components/VehicleCard.vue'
 
 const vehicles = ref([])
@@ -103,7 +103,7 @@ const form = reactive({
 
 const fetchVehicles = async () => {
   try {
-    const res = await axios.get('http://127.0.0.1:8000/api/v1/vehicles/')
+    const res = await api.get('/api/v1/vehicles/')
     vehicles.value = res.data
   } catch (err) {
     console.error('Erro ao buscar veículos', err)
@@ -125,7 +125,7 @@ const submitVehicle = async () => {
   try {
     // Force uppercase placa to conform to standards
     const payload = { ...form, placa: form.placa.toUpperCase() }
-    const res = await axios.post('http://127.0.0.1:8000/api/v1/vehicles/', payload)
+    const res = await api.post('/api/v1/vehicles/', payload)
     vehicles.value.push(res.data)
     closeModal()
   } catch (err) {

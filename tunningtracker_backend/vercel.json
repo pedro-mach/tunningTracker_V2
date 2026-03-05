@@ -1,0 +1,29 @@
+{
+  "builds": [
+    {
+      "src": "tunningtracker_backend/wsgi.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "15mb",
+        "runtime": "python3.11"
+      }
+    },
+    {
+      "src": "build_files.sh",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "staticfiles_build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/_static/(.*)",
+      "dest": "/staticfiles_build/static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "tunningtracker_backend/wsgi.py"
+    }
+  ]
+}
